@@ -8,15 +8,13 @@ import net.crmly.pages.LoginPage;
 import net.crmly.utilities.ConfigurationReader;
 import net.crmly.utilities.Driver;
 import org.junit.Assert;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class StepDefinitions {
@@ -47,15 +45,13 @@ public class StepDefinitions {
         activityStreamPage.linkTextinputbox.sendKeys(ConfigurationReader.getProperty("testText"));
         activityStreamPage.linkURLinputbox.sendKeys(ConfigurationReader.getProperty("testURL"));
         activityStreamPage.saveButton.click();
-
-
     }
 
     @When("the user clicks SEND button")
     public void the_user_clicks_send_button() {
         activityStreamPage.sendButton.click();
-
     }
+
 
     @Then("the user see the message with linked text on Activity Stream")
     public void the_user_see_the_message_with_linked_text_on_activity_stream() {
@@ -173,23 +169,30 @@ public class StepDefinitions {
 
         Actions action = new Actions(Driver.getDriver());
         action.moveToElement(activityStreamPage.linkedTextinMessageInputbox).contextClick().build().perform();
-        Thread.sleep(3000);
-
-        activityStreamPage.removeLinkButton.click();
+//        Thread.sleep(3000);
 
 //        action.moveToElement(activityStreamPage.removeLinkButton).click().perform();
 
 //        JavascriptExecutor executor = (JavascriptExecutor)Driver.getDriver();
 //        executor.executeScript("arguments[0].click();", activityStreamPage.removeLinkButton);
 
-
         Driver.getDriver().switchTo().parentFrame();
+        activityStreamPage.removeLinkButton.click();
 
     }
 
     @Then("the user see the message without linked text on Activity Stream")
-    public void the_user_see_the_message_without_linked_text_on_activity_stream() {
+    public void the_user_see_the_message_without_linked_text_on_activity_stream() throws Exception {
 
+        boolean elementNotPresent = activityStreamPage.assertLinkNotPresent(activityStreamPage.sentMessageTextWithLink);
+
+        Assert.assertTrue(elementNotPresent);
+
+        //deleting message after assertion
+        activityStreamPage.moreButton.click();
+        activityStreamPage.deleteButton.click();
+        Alert alert = Driver.getDriver().switchTo().alert();
+        alert.accept();
 
     }
 
@@ -206,13 +209,14 @@ public class StepDefinitions {
 
 
     }
+
     @Then("the user see the message with mentions on Activity Stream")
     public void the_user_see_the_message_with_mentions_on_activity_stream() {
 
         String expectedResultText = "Testing messagehelpdesk22@cybertekschool.com helpdesk23@cybertekschool.com  ";
         String actualResultText = activityStreamPage.getSentMessageText.getText();
 
-        Assert.assertEquals(expectedResultText,actualResultText);
+        Assert.assertEquals(expectedResultText, actualResultText);
 
         //deleting message after assertion
         activityStreamPage.moreButton.click();
@@ -221,13 +225,6 @@ public class StepDefinitions {
         alert.accept();
 
     }
-
-
-
-
-
-
-
 
 
 }

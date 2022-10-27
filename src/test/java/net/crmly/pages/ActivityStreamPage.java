@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.NoSuchElementException;
+
 public class ActivityStreamPage {
     public ActivityStreamPage() {
         PageFactory.initElements(Driver.getDriver(), this);
@@ -131,6 +133,16 @@ public class ActivityStreamPage {
 
     @FindBy(xpath = "//span[.='Delete']") //(//span[@class="menu-popup-item-text"])[7]
     public WebElement deleteButton;
+
+    public boolean assertLinkNotPresent(WebElement webElement) throws Exception{
+
+        try {
+            webElement.getText();
+            return false;
+        } catch (Exception ignored) {
+            return true;
+        }
+    }
 
 
 
