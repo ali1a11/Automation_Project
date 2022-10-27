@@ -25,7 +25,7 @@ public class ActivityStreamPage {
     @FindBy(xpath = "//body[@contenteditable='true']/a")
     public WebElement linkedTextinMessageInputbox;
 
-    @FindBy(xpath = "(//*[@id=\"bx-admin-prefix\"]/span[3]/span[2])[3]")
+    @FindBy(xpath = "//*[@id=\"bx-admin-prefix\"]/span[3]/span[2]")
     public WebElement removeLinkButton;
 
     @FindBy(id = "blog-submit-button-save")

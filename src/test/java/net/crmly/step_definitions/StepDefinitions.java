@@ -9,6 +9,9 @@ import net.crmly.utilities.ConfigurationReader;
 import net.crmly.utilities.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -170,10 +173,17 @@ public class StepDefinitions {
 
         Actions action = new Actions(Driver.getDriver());
         action.moveToElement(activityStreamPage.linkedTextinMessageInputbox).contextClick().build().perform();
-        Thread.sleep(1500);
-        activityStreamPage.removeLinkButton.click();
-        Driver.getDriver().switchTo().parentFrame();
+        Thread.sleep(3000);
 
+        activityStreamPage.removeLinkButton.click();
+
+//        action.moveToElement(activityStreamPage.removeLinkButton).click().perform();
+
+//        JavascriptExecutor executor = (JavascriptExecutor)Driver.getDriver();
+//        executor.executeScript("arguments[0].click();", activityStreamPage.removeLinkButton);
+
+
+        Driver.getDriver().switchTo().parentFrame();
 
     }
 
@@ -182,6 +192,4 @@ public class StepDefinitions {
 
 
     }
-
-
 }
