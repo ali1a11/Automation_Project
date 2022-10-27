@@ -34,7 +34,7 @@ Feature:
     Then the user see the message without linked text on Activity Stream
 
 
-
+  @WIP2
   Scenario: The user adds mentions into the message
     When the user types into MESSAGE text inputbox
     And the user adds mentions into the message

@@ -75,8 +75,21 @@ public class ActivityStreamPage {
     @FindBy(xpath = "//span[@id='bx-b-mention-blogPostForm']")
     public WebElement addMentionButton;
 
+    @FindBy(xpath = "//a[contains(@id, 'destDepartmentTab_mention')]")
+    public WebElement employeesAndDepartmentButton;
+
+
+    @FindBy(xpath = "(//div[@class=\"bx-finder-company-department-employee-info\"])[1]")
+    public WebElement employee1;
+
+    @FindBy(xpath = "(//div[@class=\"bx-finder-company-department-employee-info\"])[3]")
+    public WebElement employee2;
+
     @FindBy(xpath = "(//div[@class='bx-finder-box-item-t7-name'])[1]")
-    public WebElement employeeUserNameMention;
+    public WebElement employeeUserNameMention1;
+
+    @FindBy(xpath = "(//div[@class='bx-finder-box-item-t7-name'])[2]")
+    public WebElement employeeUserNameMention2;
 
     //Add tag
     @FindBy(xpath = "//span[@id='bx-b-tag-input-blogPostForm']")

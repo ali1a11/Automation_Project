@@ -192,4 +192,42 @@ public class StepDefinitions {
 
 
     }
+
+
+    @When("the user adds mentions into the message")
+    public void the_user_adds_mentions_into_the_message() {
+        activityStreamPage.addMentionButton.click();
+        activityStreamPage.employeesAndDepartmentButton.click();
+        activityStreamPage.employee1.click();
+
+        activityStreamPage.addMentionButton.click();
+        activityStreamPage.employeesAndDepartmentButton.click();
+        activityStreamPage.employee2.click();
+
+
+    }
+    @Then("the user see the message with mentions on Activity Stream")
+    public void the_user_see_the_message_with_mentions_on_activity_stream() {
+
+        String expectedResultText = "Testing messagehelpdesk22@cybertekschool.com helpdesk23@cybertekschool.com  ";
+        String actualResultText = activityStreamPage.getSentMessageText.getText();
+
+        Assert.assertEquals(expectedResultText,actualResultText);
+
+        //deleting message after assertion
+        activityStreamPage.moreButton.click();
+        activityStreamPage.deleteButton.click();
+        Alert alert = Driver.getDriver().switchTo().alert();
+        alert.accept();
+
+    }
+
+
+
+
+
+
+
+
+
 }
