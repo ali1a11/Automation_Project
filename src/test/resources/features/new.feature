@@ -12,6 +12,7 @@ Feature:
     And the user clicks SEND button
     Then the user see the message with linked text on Activity Stream
 
+
   Scenario: The user adds Quotes into the message
     When the user types into MESSAGE text inputbox
     And the user adds Quote text into the message
@@ -25,7 +26,7 @@ Feature:
     And the user clicks SEND button
     Then the user see the message with tags on Activity Stream
 
-  @WIP
+
   Scenario: The user cancels links before sending the message
     When the user types into MESSAGE text inputbox
     And the user attach the link to the text
@@ -34,7 +35,7 @@ Feature:
     Then the user see the message without linked text on Activity Stream
 
 
-  @WIP2
+  @WIP @WIP2
   Scenario: The user adds mentions into the message
     When the user types into MESSAGE text inputbox
     And the user adds mentions into the message
@@ -43,14 +44,12 @@ Feature:
 
 
 
+#  Scenario: The user inserts Vimeo video into the message
+#    When the user types into MESSAGE text inputbox
+#    And the user inserts Vimeo video into the message
+#    And the user clicks SEND button
+#    Then the user see the message with Vimeo video on Activity Stream
 
-
-
-  Scenario: The user inserts Vimeo video into the message
-    When the user types into MESSAGE text inputbox
-    And the user inserts Vimeo video into the message
-    And the user clicks SEND button
-    Then the user see the message with Vimeo video on Activity Stream
 
 #  Scenario Template: User should be able to place order and order seen in web table
 #    Given user is already logged in and on order page using "<username>" and "<password>"

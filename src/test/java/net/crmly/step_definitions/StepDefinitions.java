@@ -80,7 +80,7 @@ public class StepDefinitions {
 
 //        activityStreamPage.table.click();
 
-        Thread.sleep(3000);
+//        Thread.sleep(3000);
 
 //        Select select = new Select(activityStreamPage.selectVideoSize);
 //        select.selectByValue("560x315");
@@ -100,11 +100,8 @@ public class StepDefinitions {
     public void the_user_see_the_message_with_vimeo_video_on_activity_stream() {
 
         Driver.getDriver().switchTo().frame(activityStreamPage.sentMessageIframe);
-
         String actualResult = activityStreamPage.sentMessageIframe.getAttribute("src");
-
         System.out.println("actualResult = " + actualResult);
-
         Driver.getDriver().switchTo().parentFrame();
 
     }
@@ -197,24 +194,31 @@ public class StepDefinitions {
     }
 
 
+
+
+    String employee1 = "";
+    String employee2 = "";
+
     @When("the user adds mentions into the message")
     public void the_user_adds_mentions_into_the_message() {
         activityStreamPage.addMentionButton.click();
         activityStreamPage.employeesAndDepartmentButton.click();
+        employee1 = activityStreamPage.employee1.getText();
         activityStreamPage.employee1.click();
 
         activityStreamPage.addMentionButton.click();
         activityStreamPage.employeesAndDepartmentButton.click();
+        employee2 = activityStreamPage.employee2.getText();
         activityStreamPage.employee2.click();
-
-
     }
 
     @Then("the user see the message with mentions on Activity Stream")
     public void the_user_see_the_message_with_mentions_on_activity_stream() {
 
-        String expectedResultText = "Testing messagehelpdesk22@cybertekschool.com helpdesk23@cybertekschool.com  ";
-        String actualResultText = activityStreamPage.getSentMessageText.getText();
+        String expectedResultText = "Testing message" + employee1.trim() + " " + employee2;
+        expectedResultText = expectedResultText.trim();
+
+        String actualResultText = activityStreamPage.getSentMessageText.getText().trim();
 
         Assert.assertEquals(expectedResultText, actualResultText);
 
@@ -223,8 +227,8 @@ public class StepDefinitions {
         activityStreamPage.deleteButton.click();
         Alert alert = Driver.getDriver().switchTo().alert();
         alert.accept();
-
     }
+
 
 
 }

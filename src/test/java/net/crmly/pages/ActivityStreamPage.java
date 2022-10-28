@@ -62,7 +62,7 @@ public class ActivityStreamPage {
     @FindBy(xpath = "//div[@class='vp-player-ui-container']")
     public WebElement videoFound;
 
-// link save button ile ayni
+//    it is same with link save button
 //    @FindBy(xpath = "//input[@class='adm-btn-save']")
 //    public WebElement videoSaveButton;
 
@@ -104,7 +104,7 @@ public class ActivityStreamPage {
     public WebElement addButton;
 
     //sent message
-    @FindBy(xpath = "//div[@class='feed-post-text-block-inner-inner']")
+    @FindBy(xpath = "(//div[@class='feed-post-text-block-inner-inner'])[1]")
     public WebElement getSentMessageText;
 
     @FindBy(xpath = "(//div[@class='feed-post-text-block-inner-inner'])[1]/a")
@@ -143,7 +143,6 @@ public class ActivityStreamPage {
             return true;
         }
     }
-
 
 
 }
