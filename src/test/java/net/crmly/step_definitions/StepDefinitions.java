@@ -14,6 +14,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -227,6 +230,25 @@ public class StepDefinitions {
         activityStreamPage.deleteButton.click();
         Alert alert = Driver.getDriver().switchTo().alert();
         alert.accept();
+    }
+
+
+    @When("the user clicks Add mention button")
+    public void the_user_clicks_add_mention_button() {
+        activityStreamPage.addMentionButton.click();
+
+    }
+    @Then("the user can add mentions about only department employees.")
+    public void the_user_can_add_mentions_about_only_department_employees() {
+        List<String> actuallist = new ArrayList<>();
+
+        for (WebElement each : activityStreamPage.sections) {
+            actuallist.add(each.getText());
+        }
+        List<String> expectedlist = new ArrayList<>(Arrays.asList("Recent", "Employees and departments"));
+
+        Assert.assertEquals(expectedlist, actuallist);
+
     }
 
 

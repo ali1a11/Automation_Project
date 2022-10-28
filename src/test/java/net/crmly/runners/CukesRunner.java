@@ -16,7 +16,7 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "net/crmly/step_definitions",
         dryRun = false,
-        tags = "@Regression", //@WIP
+        tags = "@WIP", //@Regression
         publish = true
 )
 public class CukesRunner {

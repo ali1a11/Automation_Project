@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 
 public class ActivityStreamPage {
@@ -76,6 +77,9 @@ public class ActivityStreamPage {
     //Add mention
     @FindBy(xpath = "//span[@id='bx-b-mention-blogPostForm']")
     public WebElement addMentionButton;
+
+    @FindBy(xpath = "//div[@class= 'bx-finder-box-tabs']/a")
+    public List<WebElement> sections;
 
     @FindBy(xpath = "//a[contains(@id, 'destDepartmentTab_mention')]")
     public WebElement employeesAndDepartmentButton;
