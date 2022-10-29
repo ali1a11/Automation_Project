@@ -80,10 +80,24 @@ public class StepDefinitions {
 
 //        Driver.getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
 
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageTextWithLink));
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+//        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageTextWithLink));
 
-        String actualLink = activityStreamPage.sentMessageTextWithLink.getAttribute("href");
+
+        String actualLink = "";
+        for (int i = 0; i < 2; i++) {
+            try{
+                actualLink = activityStreamPage.sentMessageTextWithLink.getAttribute("href");
+                break;
+            }
+            catch(StaleElementReferenceException exp){
+                System.out.println(exp.getMessage());
+            }
+        }
+
+
+//        String actualLink = activityStreamPage.sentMessageTextWithLink.getAttribute("href");
+
         String expectedLink = ConfigurationReader.getProperty("testURL");
 
         //activityStreamPage.sentMessageText.click();
@@ -148,10 +162,23 @@ public class StepDefinitions {
     @Then("the user see the message with Quote text on Activity Stream")
     public void the_user_see_the_message_with_quote_text_on_activity_stream() {
 
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageWithQuote));
+        String actualSentQuote = "";
+        for (int i = 0; i < 2; i++) {
+            try{
+                actualSentQuote = activityStreamPage.sentMessageWithQuote.getText();
+                break;
+            }
+            catch(StaleElementReferenceException exp){
+                System.out.println(exp.getMessage());
+            }
+        }
 
-        String actualSentQuote = activityStreamPage.sentMessageWithQuote.getText();
+
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+//        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageWithQuote));
+
+//        String actualSentQuote = activityStreamPage.sentMessageWithQuote.getText();
+
         String expectedSentQuote = randomMessage;
 //        String expectedSentQuote = ConfigurationReader.getProperty("testQuote");
 
@@ -177,7 +204,20 @@ public class StepDefinitions {
 
     @Then("the user see the message with tags on Activity Stream")
     public void the_user_see_the_message_with_tags_on_activity_stream() {
-        String actualSentTag1 = activityStreamPage.senttag1.getText();
+
+        String actualSentTag1 = "";
+        for (int i = 0; i < 2; i++) {
+            try{
+                actualSentTag1 = activityStreamPage.senttag1.getText();
+                break;
+            }
+            catch(StaleElementReferenceException exp){
+                System.out.println(exp.getMessage());
+            }
+        }
+
+
+//        String actualSentTag1 = activityStreamPage.senttag1.getText();
         String expectedSemtTag1 = ConfigurationReader.getProperty("tagTest1");
 
         String actualSentTag2 = activityStreamPage.senttag2.getText();
@@ -210,7 +250,6 @@ public class StepDefinitions {
 
         boolean elementNotPresent = BrowserUtils.assertWebElementNotPresent(activityStreamPage.sentMessageTextWithLink);
 
-
         Assert.assertTrue(elementNotPresent);
 
         //deleting message after assertion
@@ -241,15 +280,38 @@ public class StepDefinitions {
     @Then("the user see the message with mentions on Activity Stream")
     public void the_user_see_the_message_with_mentions_on_activity_stream() {
 
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
-        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.getSentMessageText));
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+//        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.getSentMessageText));
+
 
 //        String expectedResultText = "Testing message" + employee1.trim() + " " + employee2;
         String expectedResultText = randomMessage + employee1.trim() + " " + employee2;
         expectedResultText = expectedResultText.trim();
 
 
-        String actualResultText = activityStreamPage.getSentMessageText.getText().trim();
+//        String actualResultText = activityStreamPage.getSentMessageText.getText().trim();
+
+        String actualResultText = "";
+        /*
+        try{
+            actualResultText = activityStreamPage.getSentMessageText.getText().trim();
+        }
+        catch(StaleElementReferenceException exp){
+            actualResultText = activityStreamPage.getSentMessageText.getText().trim();
+
+        }
+
+         */
+        for (int i = 0; i < 2; i++) {
+            try{
+                actualResultText = activityStreamPage.getSentMessageText.getText().trim();
+                break;
+            }
+            catch(StaleElementReferenceException exp){
+                System.out.println(exp.getMessage());
+            }
+        }
+
 
         Assert.assertEquals(expectedResultText, actualResultText);
 
