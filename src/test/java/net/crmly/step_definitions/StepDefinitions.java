@@ -1,23 +1,23 @@
 package net.crmly.step_definitions;
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import net.crmly.pages.ActivityStreamPage;
 import net.crmly.pages.LoginPage;
+import net.crmly.utilities.BrowserUtils;
 import net.crmly.utilities.ConfigurationReader;
 import net.crmly.utilities.Driver;
 import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class StepDefinitions {
@@ -25,20 +25,39 @@ public class StepDefinitions {
     LoginPage loginPage = new LoginPage();
     ActivityStreamPage activityStreamPage = new ActivityStreamPage();
 
-    @Given("the user is on the main page of Activity Stream.")
-    public void the_user_is_on_the_main_page_of_activity_stream() {
+//    @Given("the user is on the main page of Activity Stream.")
+//    public void the_user_is_on_the_main_page_of_activity_stream() {
+//        Driver.getDriver().get(ConfigurationReader.getProperty("URL"));
+//        loginPage.login();
+//        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+//        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.userName));
+//    }
+
+    @Given("the user is on the main page of Activity Stream as a {string}")
+    public void the_user_is_on_the_main_page_of_activity_stream_as_a(String loginType) {
         Driver.getDriver().get(ConfigurationReader.getProperty("URL"));
-        loginPage.login();
-        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 20);
+
+        loginPage.loginAs(loginType);
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
         wait.until(ExpectedConditions.visibilityOf(activityStreamPage.userName));
+
     }
+
+    String randomMessage = "";
 
     @When("the user types into MESSAGE text inputbox")
     public void the_user_types_into_message_text_inputbox() {
         activityStreamPage.messageButton.click();
 
         Driver.getDriver().switchTo().frame(activityStreamPage.messageInputFrame);
-        activityStreamPage.messageInbutbox.sendKeys(ConfigurationReader.getProperty("testText"));
+
+        Faker faker = new Faker();
+        randomMessage = faker.chuckNorris().fact();
+
+//        activityStreamPage.messageInbutbox.sendKeys(ConfigurationReader.getProperty("testText"));
+        activityStreamPage.messageInbutbox.sendKeys(randomMessage);
+
+
         Driver.getDriver().switchTo().parentFrame();
     }
 
@@ -58,7 +77,11 @@ public class StepDefinitions {
 
     @Then("the user see the message with linked text on Activity Stream")
     public void the_user_see_the_message_with_linked_text_on_activity_stream() {
-        String actualLinkText = activityStreamPage.sentMessageTextWithLink.getText();
+
+//        Driver.getDriver().manage().timeouts().implicitlyWait(3, TimeUnit.SECONDS);
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageTextWithLink));
 
         String actualLink = activityStreamPage.sentMessageTextWithLink.getAttribute("href");
         String expectedLink = ConfigurationReader.getProperty("testURL");
@@ -68,10 +91,10 @@ public class StepDefinitions {
         Assert.assertEquals(actualLink, expectedLink);
 
         //deleting message after assertion
-        activityStreamPage.moreButton.click();
-        activityStreamPage.deleteButton.click();
-        Alert alert = Driver.getDriver().switchTo().alert();
-        alert.accept();
+//        activityStreamPage.moreButton.click();
+//        activityStreamPage.deleteButton.click();
+//        Alert alert = Driver.getDriver().switchTo().alert();
+//        alert.accept();
 
     }
 
@@ -115,24 +138,32 @@ public class StepDefinitions {
         activityStreamPage.quoteTextButton.click();
 
         Driver.getDriver().switchTo().frame(activityStreamPage.messageInputFrame);
-        activityStreamPage.quoteInput.sendKeys(ConfigurationReader.getProperty("testQuote"));
+        Faker faker = new Faker();
+        randomMessage = faker.chuckNorris().fact();
+        activityStreamPage.quoteInput.sendKeys(randomMessage);
+//        activityStreamPage.quoteInput.sendKeys(ConfigurationReader.getProperty("testQuote"));
         Driver.getDriver().switchTo().parentFrame();
     }
 
     @Then("the user see the message with Quote text on Activity Stream")
     public void the_user_see_the_message_with_quote_text_on_activity_stream() {
+
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageWithQuote));
+
         String actualSentQuote = activityStreamPage.sentMessageWithQuote.getText();
-        String expectedSentQuote = ConfigurationReader.getProperty("testQuote");
+        String expectedSentQuote = randomMessage;
+//        String expectedSentQuote = ConfigurationReader.getProperty("testQuote");
+
 
         Assert.assertEquals(expectedSentQuote, actualSentQuote);
 
         //deleting message after assertion
-        activityStreamPage.moreButton.click();
-        activityStreamPage.deleteButton.click();
-        Alert alert = Driver.getDriver().switchTo().alert();
-        alert.accept();
+//        activityStreamPage.moreButton.click();
+//        activityStreamPage.deleteButton.click();
+//        Alert alert = Driver.getDriver().switchTo().alert();
+//        alert.accept();
     }
-
 
     @When("the user adds tags into the message")
     public void the_user_adds_tags_into_the_message() {
@@ -163,28 +194,22 @@ public class StepDefinitions {
     }
 
     @When("the user cancels link before sending the message")
-    public void the_user_cancels_link_before_sending_the_message() throws InterruptedException {
+    public void the_user_cancels_link_before_sending_the_message(){
 
         Driver.getDriver().switchTo().frame(activityStreamPage.messageInputFrame);
 
         Actions action = new Actions(Driver.getDriver());
         action.moveToElement(activityStreamPage.linkedTextinMessageInputbox).contextClick().build().perform();
-//        Thread.sleep(3000);
-
-//        action.moveToElement(activityStreamPage.removeLinkButton).click().perform();
-
-//        JavascriptExecutor executor = (JavascriptExecutor)Driver.getDriver();
-//        executor.executeScript("arguments[0].click();", activityStreamPage.removeLinkButton);
 
         Driver.getDriver().switchTo().parentFrame();
         activityStreamPage.removeLinkButton.click();
-
     }
 
     @Then("the user see the message without linked text on Activity Stream")
     public void the_user_see_the_message_without_linked_text_on_activity_stream() throws Exception {
 
-        boolean elementNotPresent = activityStreamPage.assertLinkNotPresent(activityStreamPage.sentMessageTextWithLink);
+        boolean elementNotPresent = BrowserUtils.assertWebElementNotPresent(activityStreamPage.sentMessageTextWithLink);
+
 
         Assert.assertTrue(elementNotPresent);
 
@@ -195,8 +220,6 @@ public class StepDefinitions {
         alert.accept();
 
     }
-
-
 
 
     String employee1 = "";
@@ -218,18 +241,23 @@ public class StepDefinitions {
     @Then("the user see the message with mentions on Activity Stream")
     public void the_user_see_the_message_with_mentions_on_activity_stream() {
 
-        String expectedResultText = "Testing message" + employee1.trim() + " " + employee2;
+        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
+        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.getSentMessageText));
+
+//        String expectedResultText = "Testing message" + employee1.trim() + " " + employee2;
+        String expectedResultText = randomMessage + employee1.trim() + " " + employee2;
         expectedResultText = expectedResultText.trim();
+
 
         String actualResultText = activityStreamPage.getSentMessageText.getText().trim();
 
         Assert.assertEquals(expectedResultText, actualResultText);
 
         //deleting message after assertion
-        activityStreamPage.moreButton.click();
-        activityStreamPage.deleteButton.click();
-        Alert alert = Driver.getDriver().switchTo().alert();
-        alert.accept();
+//        activityStreamPage.moreButton.click();
+//        activityStreamPage.deleteButton.click();
+//        Alert alert = Driver.getDriver().switchTo().alert();
+//        alert.accept();
     }
 
 
@@ -238,7 +266,8 @@ public class StepDefinitions {
         activityStreamPage.addMentionButton.click();
 
     }
-    @Then("the user can add mentions about only department employees.")
+
+    @Then("the user can add mentions about only department employees")
     public void the_user_can_add_mentions_about_only_department_employees() {
         List<String> actuallist = new ArrayList<>();
 
@@ -250,7 +279,6 @@ public class StepDefinitions {
         Assert.assertEquals(expectedlist, actuallist);
 
     }
-
 
 
 }

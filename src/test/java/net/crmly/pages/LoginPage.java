@@ -33,6 +33,34 @@ public class LoginPage {
         this.loginButton.click();
     }
 
+    public void loginAs(String loginType){
+        String username ="";
+        String password ="";
+
+        switch(loginType){
+            case "Helpdesk":
+                username = ConfigurationReader.getProperty("helpdesk_username");
+                password = ConfigurationReader.getProperty("helpdesk_password");
+                break;
+            case "Human Resource":
+                username = ConfigurationReader.getProperty("hr_username");
+                password = ConfigurationReader.getProperty("hr_password");
+                break;
+            case "Marketing":
+                username = ConfigurationReader.getProperty("marketing_username");
+                password = ConfigurationReader.getProperty("marketing_password");
+                break;
+            default:
+                System.out.println("invalid entry");
+
+        }
+
+        this.userName.sendKeys(username);
+        this.password.sendKeys(password);
+        this.loginButton.click();
+
+    }
+
 
 
 }
