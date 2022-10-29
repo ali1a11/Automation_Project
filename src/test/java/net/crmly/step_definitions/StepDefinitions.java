@@ -100,21 +100,15 @@ public class StepDefinitions {
 
         String expectedLink = ConfigurationReader.getProperty("testURL");
 
-        //activityStreamPage.sentMessageText.click();
+
 
         Assert.assertEquals(actualLink, expectedLink);
-
-        //deleting message after assertion
-//        activityStreamPage.moreButton.click();
-//        activityStreamPage.deleteButton.click();
-//        Alert alert = Driver.getDriver().switchTo().alert();
-//        alert.accept();
 
     }
 
     //video
     @When("the user inserts Vimeo video into the message")
-    public void the_user_inserts_vimeo_video_into_the_message() throws InterruptedException {
+    public void the_user_inserts_vimeo_video_into_the_message() {
         activityStreamPage.insertVideoButton.click();
         activityStreamPage.videoSourceInputbox.sendKeys(ConfigurationReader.getProperty("testVimeoVideoURL"));
 
@@ -143,7 +137,6 @@ public class StepDefinitions {
         String actualResult = activityStreamPage.sentMessageIframe.getAttribute("src");
         System.out.println("actualResult = " + actualResult);
         Driver.getDriver().switchTo().parentFrame();
-
     }
 
     @When("the user adds Quote text into the message")
@@ -185,11 +178,6 @@ public class StepDefinitions {
 
         Assert.assertEquals(expectedSentQuote, actualSentQuote);
 
-        //deleting message after assertion
-//        activityStreamPage.moreButton.click();
-//        activityStreamPage.deleteButton.click();
-//        Alert alert = Driver.getDriver().switchTo().alert();
-//        alert.accept();
     }
 
     @When("the user adds tags into the message")
@@ -226,11 +214,6 @@ public class StepDefinitions {
         Assert.assertEquals(expectedSemtTag1, actualSentTag1);
         Assert.assertEquals(expectedSentTag2, actualSentTag2);
 
-        //deleting message after assertion
-        activityStreamPage.moreButton.click();
-        activityStreamPage.deleteButton.click();
-        Alert alert = Driver.getDriver().switchTo().alert();
-        alert.accept();
     }
 
     @When("the user cancels link before sending the message")
@@ -251,12 +234,6 @@ public class StepDefinitions {
         boolean elementNotPresent = BrowserUtils.assertWebElementNotPresent(activityStreamPage.sentMessageTextWithLink);
 
         Assert.assertTrue(elementNotPresent);
-
-        //deleting message after assertion
-        activityStreamPage.moreButton.click();
-        activityStreamPage.deleteButton.click();
-        Alert alert = Driver.getDriver().switchTo().alert();
-        alert.accept();
 
     }
 
@@ -283,7 +260,6 @@ public class StepDefinitions {
 //        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 //        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.getSentMessageText));
 
-
 //        String expectedResultText = "Testing message" + employee1.trim() + " " + employee2;
         String expectedResultText = randomMessage + employee1.trim() + " " + employee2;
         expectedResultText = expectedResultText.trim();
@@ -292,16 +268,7 @@ public class StepDefinitions {
 //        String actualResultText = activityStreamPage.getSentMessageText.getText().trim();
 
         String actualResultText = "";
-        /*
-        try{
-            actualResultText = activityStreamPage.getSentMessageText.getText().trim();
-        }
-        catch(StaleElementReferenceException exp){
-            actualResultText = activityStreamPage.getSentMessageText.getText().trim();
 
-        }
-
-         */
         for (int i = 0; i < 2; i++) {
             try{
                 actualResultText = activityStreamPage.getSentMessageText.getText().trim();
@@ -312,14 +279,7 @@ public class StepDefinitions {
             }
         }
 
-
         Assert.assertEquals(expectedResultText, actualResultText);
-
-        //deleting message after assertion
-//        activityStreamPage.moreButton.click();
-//        activityStreamPage.deleteButton.click();
-//        Alert alert = Driver.getDriver().switchTo().alert();
-//        alert.accept();
     }
 
 
@@ -341,6 +301,10 @@ public class StepDefinitions {
         Assert.assertEquals(expectedlist, actuallist);
 
     }
-
-
 }
+
+//deleting message after assertion
+//        activityStreamPage.moreButton.click();
+//        activityStreamPage.deleteButton.click();
+//        Alert alert = Driver.getDriver().switchTo().alert();
+//        alert.accept();
