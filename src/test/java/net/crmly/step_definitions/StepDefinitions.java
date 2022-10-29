@@ -166,16 +166,15 @@ public class StepDefinitions {
             }
         }
 
-
 //        WebDriverWait wait = new WebDriverWait(Driver.getDriver(), 10);
 //        wait.until(ExpectedConditions.visibilityOf(activityStreamPage.sentMessageWithQuote));
 
 //        String actualSentQuote = activityStreamPage.sentMessageWithQuote.getText();
 
-        String expectedSentQuote = randomMessage;
+
 //        String expectedSentQuote = ConfigurationReader.getProperty("testQuote");
 
-
+        String expectedSentQuote = randomMessage;
         Assert.assertEquals(expectedSentQuote, actualSentQuote);
 
     }

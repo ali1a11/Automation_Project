@@ -2,7 +2,7 @@
 Feature:
   User Story: As a user, I should be able to add link, insert video, mention, quote, add tag in message.
 
-  @WIP1
+
   Scenario Outline: The user adds mentions into the message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
@@ -15,7 +15,7 @@ Feature:
       | Helpdesk       |
       | Human Resource |
 
-  @WIP2
+
   Scenario Outline: The user can add mentions about only department employees
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
@@ -53,7 +53,7 @@ Feature:
       | Helpdesk       |
       | Human Resource |
 
-  @WIP3
+
   Scenario Outline: The user adds tags into the message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox

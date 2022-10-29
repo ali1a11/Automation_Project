@@ -16,21 +16,10 @@ import org.junit.runner.RunWith;
         features = "src/test/resources/features",
         glue = "net/crmly/step_definitions",
         dryRun = false,
-        tags = "@Regression", //@WIP1@Regression
+        tags = "@Regression", //@WIP @Regression
         publish = true
 )
 public class CukesRunner {
 }
 
-/*
-"pretty" plugin:
-basically it just prints out additional information about the scenario that is being executed.
- */
 
-
-/*
-publish = true;
-    --> will enable a functionality from cucumber to generate a public link for the report of our final execution of our code
-    --> the link will be automatically generated and printed in the console
-    --> it will be ready to share with anyone
- */

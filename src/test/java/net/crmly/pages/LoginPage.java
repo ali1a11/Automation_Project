@@ -11,7 +11,6 @@ public class LoginPage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-
     @FindBy(xpath = "//input[@placeholder='Login']")
     public WebElement userName;
 
@@ -60,7 +59,6 @@ public class LoginPage {
         this.loginButton.click();
 
     }
-
 
 
 }
