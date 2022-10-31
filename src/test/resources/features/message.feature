@@ -3,6 +3,19 @@ Feature:
   User Story: As a user, I should be able to add link, insert video, mention, quote, add tag in message.
 
 
+  @CRMLYEUG-1416
+  Scenario Outline: The user can add mentions about only department employees
+    Given the user is on the main page of Activity Stream as a "<userType>"
+    When the user types into MESSAGE text inputbox
+    And the user clicks Add mention button
+    Then the user can add mentions about only department employees
+    Examples:
+      | userType       |
+      | Marketing      |
+      | Helpdesk       |
+      | Human Resource |
+
+  @CRMLYEUG-1417
   Scenario Outline: The user adds mentions into the message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
@@ -15,19 +28,7 @@ Feature:
       | Helpdesk       |
       | Human Resource |
 
-
-  Scenario Outline: The user can add mentions about only department employees
-    Given the user is on the main page of Activity Stream as a "<userType>"
-    When the user types into MESSAGE text inputbox
-    And the user clicks Add mention button
-    Then the user can add mentions about only department employees
-    Examples:
-      | userType       |
-      | Marketing      |
-      | Helpdesk       |
-      | Human Resource |
-
-
+  @CRMLYEUG-1418
   Scenario Outline:  The user attaches a link to the specified text in message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
@@ -40,7 +41,7 @@ Feature:
       | Helpdesk       |
       | Human Resource |
 
-
+  @CRMLYEUG-1419
   Scenario Outline: The user adds Quotes into the message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
@@ -53,7 +54,7 @@ Feature:
       | Helpdesk       |
       | Human Resource |
 
-
+  @CRMLYEUG-1420
   Scenario Outline: The user adds tags into the message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
@@ -66,7 +67,7 @@ Feature:
       | Helpdesk       |
       | Human Resource |
 
-  @WIP
+  @CRMLYEUG-1421 @WIP
   Scenario Outline: The user cancels links before sending the message
     Given the user is on the main page of Activity Stream as a "<userType>"
     When the user types into MESSAGE text inputbox
