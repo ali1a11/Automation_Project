@@ -1,4 +1,4 @@
-@Regression @smoke
+@CRMLYEUG-1433 @Regression @smoke
 Feature:
   User Story: As a user, I should be able to add link, insert video, mention, quote, add tag in message.
 
