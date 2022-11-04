@@ -116,7 +116,8 @@ public class BrowserUtils {
 
         try {
             Driver.getDriver().manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-            webElement.getText();
+            //webElement.getText();
+            webElement.isDisplayed();
             return false;
         } catch (Exception ignored) {
             return true;
